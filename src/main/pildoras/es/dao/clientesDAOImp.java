@@ -38,6 +38,55 @@ public class clientesDAOImp implements ClienteDAO{
 
 	}
 
+	@Override
+	@Transactional
+	public void editarClie(Cliente elCliente) {
+		
+		Session miSession = sessionfact.getCurrentSession();
+		
+		miSession.update(elCliente);
+
+	}
+	
+	@Override
+	@Transactional
+	public Cliente getClientes(int id) {
+		//OBTENER LA SESION
+		Session miSession = sessionfact.getCurrentSession();
+		
+		//OBTENER LA INFO DEL CLIENTE
+		Cliente obtCli = miSession.get(Cliente.class, id);
+		
+		return obtCli;
+	}
+
+
+	@Override
+	@Transactional
+	public void eliminarClie(int id) {
+		
+		//OBTENER LA SESION
+				Session miSession = sessionfact.getCurrentSession();
+				
+				//ELIMINAR LA INFO DEL CLIENTE
+				miSession.delete(miSession.get(Cliente.class, id));
+				
+				//Query consulta = miSession.createQuery("delete from Cliente where id=:IdDelCliente");
+				
+				//consulta.setParameter("IdDelCliente", id);
+				
+				//consulta.executeUpdate();
+	}
+
+	
 	@Autowired
 	private SessionFactory sessionfact;
+
+
+
+
+
+
+	//MODELATTRIBUTE NO ESTA RELACIONADO CON @ModelAttribute ojo manito
+
 }
